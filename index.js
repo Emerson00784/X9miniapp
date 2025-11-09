@@ -1,117 +1,44 @@
-import express from "express";
-import bodyParser from "body-parser";
-
-const app = express();
-app.use(bodyParser.json());
-
-// Menu principal
-const mainMenu = {
-  reply_markup: {
-    inline_keyboard: [
-      [{ text: "🛒 Comprar e Vender", callback_data: "comprar_vender" }],
-      [{ text: "🏆 Top Compradores", callback_data: "top_compradores" }],
-      [{ text: "🎁 Airdrops", callback_data: "airdrops" }],
-      [{ text: "👥 Comunidade", callback_data: "comunidade" }],
-      [{ text: "ℹ️ Sobre X9", callback_data: "sobre_x9" }],
-      [{ text: "💰 Wallet", callback_data: "wallet" }],
-      [{ text: "❓ Ajuda", callback_data: "ajuda" }]
-    ]
-  }
-};
-
-// Submenus
-const subMenus = {
-  comprar_vender: {
-    text: "🛒 Menu de Compra e Venda",
-    reply_markup: {
-      inline_keyboard: [
-        [{ text: "Comprar Tokens", url: "https://pump.fun" }],
-        [{ text: "Vender Tokens", url: "https://pump.fun" }],
-        [{ text: "⬅️ Voltar", callback_data: "voltar_menu" }]
-      ]
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>X9 Mini App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0b0b0b;
+      color: #fff;
+      text-align: center;
+      padding: 30px;
     }
-  },
-  top_compradores: {
-    text: "🏆 Top Compradores",
-    reply_markup: {
-      inline_keyboard: [
-        [{ text: "Ver Ranking", url: "https://t.me/XX9ME" }],
-        [{ text: "⬅️ Voltar", callback_data: "voltar_menu" }]
-      ]
+    h1 {
+      color: #00ff9d;
     }
-  },
-  airdrops: {
-    text: "🎁 Airdrops disponíveis",
-    reply_markup: {
-      inline_keyboard: [
-        [{ text: "Participar de Airdrops", url: "https://pump.fun" }],
-        [{ text: "⬅️ Voltar", callback_data: "voltar_menu" }]
-      ]
+    button {
+      display: block;
+      margin: 12px auto;
+      padding: 14px 22px;
+      border: none;
+      border-radius: 12px;
+      background: #00ff9d;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 16px;
     }
-  },
-  comunidade: {
-    text: "👥 Junte-se à Comunidade",
-    reply_markup: {
-      inline_keyboard: [
-        [{ text: "Canal Oficial", url: "https://t.me/XX9ME" }],
-        [{ text: "⬅️ Voltar", callback_data: "voltar_menu" }]
-      ]
-    }
-  },
-  sobre_x9: {
-    text: "ℹ️ Sobre o X9",
-    reply_markup: {
-      inline_keyboard: [
-        [{ text: "Saiba Mais", url: "https://pump.fun/coin/4LxopEqFTyM2tMrDX6bHHtZkaQPctahZri3hwzd8kLnE" }],
-        [{ text: "⬅️ Voltar", callback_data: "voltar_menu" }]
-      ]
-    }
-  },
-  wallet: {
-    text: "💰 Sua Wallet",
-    reply_markup: {
-      inline_keyboard: [
-        [{ text: "Conectar Wallet", url: "https://pump.fun" }],
-        [{ text: "⬅️ Voltar", callback_data: "voltar_menu" }]
-      ]
-    }
-  },
-  ajuda: {
-    text: "❓ Ajuda e Suporte",
-    reply_markup: {
-      inline_keyboard: [
-        [{ text: "Contato", url: "https://t.me/XX9ME" }],
-        [{ text: "⬅️ Voltar", callback_data: "voltar_menu" }]
-      ]
-    }
-  }
-};
+  </style>
+</head>
+<body>
+  <h1>🚀 Bem-vindo ao X9 Mini App</h1>
+  <p>Escolha uma opção abaixo:</p>
 
-app.post("/webhook", (req, res) => {
-  const { message, callback_query } = req.body;
-
-  let response;
-
-  if (message) {
-    response = {
-      chat_id: message.chat.id,
-      text: "👋 Bem-vindo ao Mini App X9! Escolha uma opção abaixo:",
-      ...mainMenu
-    };
-  }
-
-  if (callback_query) {
-    const data = callback_query.data;
-    const chat_id = callback_query.message.chat.id;
-
-    if (data === "voltar_menu") {
-      response = { chat_id, text: "🔙 Voltando ao menu principal:", ...mainMenu };
-    } else if (subMenus[data]) {
-      response = { chat_id, ...subMenus[data] };
-    }
-  }
-
-  res.json(response || {});
-});
-
-app.listen(3000, () => console.log("🚀 X9 Mini App rodando na porta 3000"));
+  <button>💰 Comprar e Vender</button>
+  <button>🏆 Top Compradores</button>
+  <button>🎁 Airdrops</button>
+  <button>👥 Comunidade</button>
+  <button>ℹ️ Sobre X9</button>
+  <button>💼 Wallet</button>
+  <button>🆘 Ajuda</button>
+</body>
+</html>
