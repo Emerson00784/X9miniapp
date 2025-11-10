@@ -1,12 +1,18 @@
-const express = require("express");
-const path = require("path");
+import express from "express";
+import path from "path";
+import { fileURLToPath } from "url";
+
 const app = express();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-app.use(express.static(__dirname)); // Serve os arquivos HTML/CSS/JS
-
+// Servir o arquivo index.html
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
+// Porta dinâmica (para Railway)
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`🚀 X9 Mini App rodando na porta ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`🚀 Servidor rodando na porta ${PORT}`);
+});
